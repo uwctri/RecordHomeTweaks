@@ -1,0 +1,122 @@
+{
+    "name": "Record Home Tweaks",
+    "description": "Tweaks for the display and organization of events and instruments on the record home page",
+    "namespace": "UWMadison\\RecordHomeTweaks",
+    "authors": [{
+        "name": "Adam Nunez",
+        "email": "Adam.Nunez@ctri.wisc.edu",
+        "institution": "UW Madison - Center for Tobacco Research and Intervention "
+    }],
+    "permissions": [
+        "redcap_every_page_top",
+        "redcap_data_entry_form"
+    ],
+    "framework-version": 9,
+    "project-settings": [{
+            "key": "record-alert",
+            "name": "<b>Record Home Alert</b><br>Displays at the top of the record home. Useful for FYIs on new instruments or recent changes",
+            "type": "textarea"
+        },
+        {
+            "key": "align-th-top",
+            "name": "Align record home page table headers to top of cell",
+            "type": "checkbox"
+        },
+        {
+            "key": "remove-collapse",
+            "name": "Remove the table collapse button",
+            "type": "checkbox"
+        },
+        {
+            "key": "align-img-center",
+            "name": "Always align instrument markers to center",
+            "type": "checkbox"
+        },
+        {
+            "key": "system-management-event",
+            "name": "<b>Move event to seperate table:</b><br>Used for System Managment event on the Record Home Page that don't represent a visit",
+            "type": "event-list"
+        },
+        {
+            "key": "hide-form-row-list",
+            "name": "<b>Forms to hide</b>",
+            "type": "sub_settings",
+            "sub_settings": [{
+                "key": "hide-form-row",
+                "name": "<b>Form</b>",
+                "type": "form-list",
+                "repeatable": true
+            }]
+        },
+        {
+            "key": "hide-events-list",
+            "name": "<b>Events to Hide</b>",
+            "type": "sub_settings",
+            "sub_settings": [{
+                "key": "hide-events",
+                "name": "<b>Event</b>",
+                "type": "event-list",
+                "repeatable": true
+            }]
+        },
+        {
+            "key": "prevent-navigation-instrument-list",
+            "name": "<b>Forms to Block Navigation to</b><br>and redirect to record home",
+            "type": "sub_settings",
+            "sub_settings": [{
+                "key": "stop-nav-instrument",
+                "name": "<b>Form</b>",
+                "type": "form-list",
+                "repeatable": true
+            }]
+        },
+        {
+            "key": "hide-repeating-table-list",
+            "name": "<b>Repeating instrument tables to hide</b>",
+            "type": "sub_settings",
+            "sub_settings": [{
+                "key": "hide-repeating-table",
+                "name": "<b>Form</b>",
+                "type": "form-list",
+                "repeatable": true
+            }]
+        },
+        {
+            "key": "full-size-repeating-table-list",
+            "name": "<b>Repeating instrument tables to show at full width</b>",
+            "type": "sub_settings",
+            "sub_settings": [{
+                "key": "full-size-repeating-table",
+                "name": "<b>Form</b>",
+                "type": "form-list",
+                "repeatable": true
+            }]
+        },
+        {
+            "key": "event-tabs",
+            "name": "<b>Event Group Tab</b>",
+            "type": "sub_settings",
+            "repeatable": true,
+            "sub_settings": [{
+                    "key": "tab-name",
+                    "name": "<b>Tab Name</b>",
+                    "type": "text"
+                },
+                {
+                    "key": "tab-event",
+                    "name": "<b>Include Event</b>",
+                    "type": "event-list",
+                    "repeatable": true
+                },
+                {
+                    "key": "tab-button",
+                    "name": "<b>Hide event tabs?</b><br>Hide this and below tabs by default<br>and use a button to add them, specify button text",
+                    "type": "text"
+                }
+            ]
+        }
+    ],
+    "compatibility": {
+        "redcap-version-min": "12.0.4"
+    }
+}
