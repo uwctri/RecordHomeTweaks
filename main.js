@@ -56,6 +56,8 @@ RecordHomeTweaks.fn.watchdog = () => {
     $("#FixedTableHdrsEnable").hide();
 }
 
+// TODO the col sizing is wrong and weird
+
 $(document).ready(() => {
     
     // Checkbox settings
@@ -165,20 +167,20 @@ $(document).ready(() => {
             });
             
             // Update and draw
+            RecordHomeTweaks.hiddenRowsTmp = [];
             RecordHomeTweaks.table.columns(hide.filter(y=>!show.includes(y))).visible(false,false);
             RecordHomeTweaks.table.columns.adjust().draw();
             
             // Hide select rows
-            //RecordHomeTweaks.hiddenRowsTmp = [];
-            //let hiddenCols = RecordHomeTweaks.table.columns().indexes("visible");
-            //RecordHomeTweaks.table.rows({filter: 'applied'}).every( function(rowIdx, tableLoop, rowLoop) {
-            //    let data = this.data().filter((el,index)=> index>0 && hiddenCols[index] && el);
-            //    if ( !data ) return;
-            //    RecordHomeTweaks.hiddenRowsTmp.push($(this.node()).find("td>span").first().attr("data-mlm-name"));
-            //});
-            //
-            //// Draw again
-            //RecordHomeTweaks.table.draw();
+            let hiddenCols = RecordHomeTweaks.table.columns().indexes("visible");
+            RecordHomeTweaks.table.rows({filter: 'applied'}).every( function(rowIdx, tableLoop, rowLoop) {
+                let data = this.data().filter((el,index)=> index>0 && hiddenCols[index] && el);
+                if ( data ) return;
+                RecordHomeTweaks.hiddenRowsTmp.push($(this.node()).find("td>span").first().attr("data-mlm-name"));
+            });
+            
+            // Draw again
+            RecordHomeTweaks.table.draw();
 
         }).first().click();
         
