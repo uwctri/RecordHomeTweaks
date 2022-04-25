@@ -21,14 +21,15 @@ RecordHomeTweaks.html.td = (btn,name) => `
 <td class="nowrap" style="text-align:center;">${btn}
     <span style="margin-left:5px">${name}</span>
 </td>`;
-RecordHomeTweaks.html.tabRow = `<div id="tabsRow" class="row"><ul class="nav nav-tabs" id="customRecordHomeTabs"></ul></div>`;
+RecordHomeTweaks.html.tabRow = `<div id="tabsRow" class="row"><ul class="nav nav-tabs" id="eventTabs"></ul></div>`;
 RecordHomeTweaks.html.tab = (name) => `<li class="nav-item"><a class="nav-link" href="javascript:void(0);">${name}</a></li>`;
+RecordHomeTweaks.html.tabButton = (btnText) => `<a class="btn btn-primary btn-sm addNewTabButton" href="#" role="button">${btnText}</a>`;
 RecordHomeTweaks.css = 
 `<style>
-    #customRecordHomeTabs .nav-link.active {
+    #eventTabs .nav-link.active {
         background-color: #FFFFE0
     }
-    #customRecordHomeTabs .nav-link {
+    #eventTabs .nav-link {
         border-color: #ccc;
         border-bottom: none;
         margin-right: 1px;
@@ -36,9 +37,9 @@ RecordHomeTweaks.css =
     #tabsRow {
         margin-left: 0;
     }
-    #addNewTabButton {
+    .addNewTabButton {
         margin: 4px 0 5px 25px;
-        color: #fff;
+        color: #fff!important;
         height: 25px;
         padding: 3px 8px 3px 8px;
     }
@@ -57,9 +58,10 @@ RecordHomeTweaks.fn.watchdog = () => {
 }
 
 // TODO the col sizing is wrong and weird
+// Todo fade in
 
 $(document).ready(() => {
-    
+    console.time("foo");
     // Checkbox settings
     if ( RecordHomeTweaks["align-th-top"] ) {
         $("#event_grid_table th").css("vertical-align","top");
@@ -146,16 +148,11 @@ $(document).ready(() => {
         RecordHomeTweaks.fn.watchdog();
         $("head").append(RecordHomeTweaks.css);
         $("#event_grid_table").before(RecordHomeTweaks.html.tabRow).css("width","auto");
-
-        // Build out every tab button
-        $.each( Object.keys(RecordHomeTweaks.tabs), (_,name) => { 
-            $('#customRecordHomeTabs').append( RecordHomeTweaks.html.tab(name) );
-        });
-        
-        $('#customRecordHomeTabs a').on('click', (eventObj) => {
+       
+        $("body").on('click', '#eventTabs a', (eventObj) => {
             // Flag as active
             $tab = $(eventObj.currentTarget);
-            $('#customRecordHomeTabs a').removeClass('active');
+            $('#eventTabs a').removeClass('active');
             $tab.addClass('active');
             
             // Show all columns and then and build show/hide list
@@ -175,30 +172,36 @@ $(document).ready(() => {
             let hiddenCols = RecordHomeTweaks.table.columns().indexes("visible");
             RecordHomeTweaks.table.rows({filter: 'applied'}).every( function(rowIdx, tableLoop, rowLoop) {
                 let data = this.data().filter((el,index)=> index>0 && hiddenCols[index] && el);
-                if ( data ) return;
+                if ( data.length ) return;
                 RecordHomeTweaks.hiddenRowsTmp.push($(this.node()).find("td>span").first().attr("data-mlm-name"));
             });
             
             // Draw again
             RecordHomeTweaks.table.draw();
-
-        }).first().click();
+        });
         
-        // TODO add buttons for the EM
-        //if ( typeof CTRItweaks.AddTabText != 'undefined' && CTRItweaks.AddTabText != "") {
-        //    $('.nav-link').slice(1).each( function(index) {
-        //        $(this).click();
-        //        if ( $('#event_grid_table img:visible').filter('[src*="circle_red"],[src*="circle_green"],[src*="circle_yellow"]').length == 0 )
-        //            $(this).hide();
-        //    });
-        //    if ( Object.keys(CTRItweaks.TabConfig).length != $('#customRecordHomeTabs a:visible').length ) {
-        //        $('#tabsRow').append('<a id="addNewTabButton" class="btn btn-primary btn-sm" href="#" role="button">'+CTRItweaks.AddTabText+'</a>')
-        //        $('#addNewTabButton').on('click', function () {
-        //            $('.nav-link').not(':visible').first().show();
-        //            $(this).hide();
-        //        });
-        //    }
-        //}
+        // Build out every tab & tab button
+        let hideTabe = false;
+        $.each( RecordHomeTweaks.tabs, (name,data) => { 
+            $('#eventTabs').append( RecordHomeTweaks.html.tab(name) );
+            if ( data.button ) {
+                hideTabe = true;
+                $('#tabsRow').append(RecordHomeTweaks.html.tabButton(data.button));
+            }
+            if ( hideTabe ) {
+                $('#eventTabs a').last().click();
+                if ( $('#event_grid_table img:visible').filter('[src*="circle_red"],[src*="circle_green"],[src*="circle_yellow"]').length == 0 ) {
+                    $('#eventTabs li').last().hide();
+                }
+            }
+        });
         
+        $('.addNewTabButton').on('click', (el) => {
+            $('#eventTabs li').not(':visible').first().show(); //TODO
+            $(el.currentTarget).hide();
+        });
+        
+        $("#eventTabs a").first().click();
     }
+    console.timeEnd("foo");
 });
