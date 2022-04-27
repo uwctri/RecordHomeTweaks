@@ -5,8 +5,8 @@ RecordHomeTweaks.html.alert = `
     ${RecordHomeTweaks["record-alert"]}
 </div>`;
 RecordHomeTweaks.html.table = (title,subtitle) => `
-<div class="table-responsive">
-    <table id="systemManagementTable" class="table table-bordered" style="background-color:#fcfef5;color:#000;width:max-content">
+<div id="sysManTable" class="table-responsive">
+    <table class="table table-bordered sysManTable" style="background-color:#fcfef5;color:#000;width:max-content">
         <tbody>
             <tr>
                 <td id="eventReformatTitle" style="text-align:center;background-color:#FFFFE0" colspan="99">
@@ -24,6 +24,7 @@ RecordHomeTweaks.html.td = (btn,name) => `
 RecordHomeTweaks.html.tabRow = `<div id="tabsRow" class="row"><ul class="nav nav-tabs" id="eventTabs"></ul></div>`;
 RecordHomeTweaks.html.tab = (name) => `<li class="nav-item"><a class="nav-link" href="javascript:void(0);">${name}</a></li>`;
 RecordHomeTweaks.html.tabButton = (btnText) => `<a class="btn btn-primary btn-sm newTabBtn" href="#" role="button">${btnText}</a>`;
+RecordHomeTweaks.html.imgFilter = `[src*="circle_red"],[src*="circle_green"],[src*="circle_yellow"]`;
 RecordHomeTweaks.tabsCss = 
 `<style>
     #eventTabs .nav-link.active {
@@ -58,11 +59,9 @@ RecordHomeTweaks.fn.watchdog = () => {
 }
 
 // TODO the col sizing is wrong and weird
-// Todo fade in
 // TODO Highlight a Col as the current one dependent on a value in that event
 
 $(document).ready(() => {
-    console.time("Record Home Tweaks");
     
     // Checkbox settings
     if ( RecordHomeTweaks["align-th-top"] ) {
@@ -82,20 +81,20 @@ $(document).ready(() => {
         $("#center table").first().after(RecordHomeTweaks.html.alert);
     }
     
-    // Lower Tables
-    RecordHomeTweaks["hide-repeating-table"][0].filter(y=>y).forEach( (el) =>
+    // Repeating Instrument Tables
+    RecordHomeTweaks["hide-repeating-table"].filter(y=>y).forEach( (el) =>
         $(`table[id^=repeat_instrument_table][id$=${el}]`).parent().remove()
     );
-    RecordHomeTweaks["full-size-repeating-table"][0].filter(y=>y).forEach( (el) =>
+    RecordHomeTweaks["full-size-repeating-table"].filter(y=>y).forEach( (el) =>
         $(`table[id^=repeat_instrument_table][id$=${el}]`).parent().removeClass().addClass('float-left')
     );
     
     // Get table refrence
     $("#event_grid_table th").attr("data-orderable","false");
     RecordHomeTweaks.table = $("#event_grid_table").DataTable({
-        "paginate": false,
-        "order": [],
-        "dom": "t"
+        paginate: false,
+        order: [],
+        dom: "t"
     });
     
     // Setup Hiding for rows
@@ -107,22 +106,22 @@ $(document).ready(() => {
     });
     
     // User hidden rows
-    RecordHomeTweaks.hiddenRows = RecordHomeTweaks.hiddenRows.concat(RecordHomeTweaks["hide-form-row"][0].filter(y=>y));
+    RecordHomeTweaks.hiddenRows = RecordHomeTweaks.hiddenRows.concat(RecordHomeTweaks["hide-form-row"].filter(y=>y));
     
     // User hidden columns
-    if ( RecordHomeTweaks["hide-events"] ) {
-        RecordHomeTweaks["hide-events"][0].forEach( (event_id) => {
+    if ( RecordHomeTweaks["hide-event"] ) {
+        RecordHomeTweaks["hide-event"].forEach( (event_id) => {
             let col = $(`div[data-mlm-name=${event_id}]`).parent();
-            RecordHomeTweaks.table.column(col).visible(false);
+            RecordHomeTweaks.table.column(col).visible(false,false);
         });
     }
     
     // System Management Table
     if ( RecordHomeTweaks["system-management-event"] ) {
-        let maxCells = 5;
         let $header = $(`div[data-mlm-name=${RecordHomeTweaks["system-management-event"]}]`).parent();
-        let title = $header.find(".evTitle").text();
-        let subtitle = $header.find(".custom_event_label").text();
+        const maxCells = 5;
+        const title = $header.find(".evTitle").text();
+        const subtitle = $header.find(".custom_event_label").text();
         
         $("#record_display_name").after(RecordHomeTweaks.html.table(title,subtitle));
         $("#event_grid_table button.btn-table-collapse").remove();
@@ -132,9 +131,9 @@ $(document).ready(() => {
         RecordHomeTweaks.table.column($header).data().toArray().forEach( (html,index) => {
             if ( !html || html.includes("deleteEventInstance") ) return;
             if (count++ % maxCells == 0) {
-                $("#systemManagementTable tr").last().after("<tr></tr>");
+                $(".sysManTable tr").last().after("<tr></tr>");
             }
-            $("#systemManagementTable tr").last().append(RecordHomeTweaks.html.td(html,formNames[index]));
+            $(".sysManTable tr").last().append(RecordHomeTweaks.html.td(html,formNames[index]));
             let row = RecordHomeTweaks.table.row(index);
             // We expect 2 values, the hidden col and the name
             if ( row.data().filter(y=>y).length <= 2 ) {
@@ -150,10 +149,12 @@ $(document).ready(() => {
         RecordHomeTweaks.fn.watchdog();
         $("head").append(RecordHomeTweaks.tabsCss);
         $("#event_grid_table").before(RecordHomeTweaks.html.tabRow).css("width","auto");
-       
+        
+        // Tab clicks
         $("body").on('click', '#eventTabs a', (eventObj) => {
             // Flag as active
             $tab = $(eventObj.currentTarget);
+            if ( $tab.hasClass('active') ) return;
             $('#eventTabs a').removeClass('active');
             $tab.addClass('active');
             
@@ -199,12 +200,13 @@ $(document).ready(() => {
             if ( hideTab ) {
                 currentTabs.push(name);
                 $('#eventTabs a').last().click();
-                if ( $('#event_grid_table img:visible').filter('[src*="circle_red"],[src*="circle_green"],[src*="circle_yellow"]').length == 0 ) {
+                if ( $('#event_grid_table img:visible').filter(RecordHomeTweaks.html.imgFilter).length == 0 ) {
                     $('#eventTabs li').last().hide();
                 }
             }
         });
         
+        // New Tab Button clicks
         $('.newTabBtn').on('click', (el) => {
             let $el = $(el.currentTarget);
             let btnMap = {};
@@ -222,5 +224,7 @@ $(document).ready(() => {
         
         $("#eventTabs a").first().click();
     }
-    console.timeEnd("Record Home Tweaks");
+    
+    // Show the screen, it was hidden in PHP
+    $("#center").css("opacity","100");
 });

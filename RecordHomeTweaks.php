@@ -21,13 +21,9 @@ class RecordHomeTweaks extends AbstractExternalModule {
                     "button" => $config["tab-button"][$index]
                 ];
             }
-            unset($config["hide-events-list"],
-                  $config["hide-form-row-list"],
-                  $config["hide-repeating-table-list"],
-                  $config["full-size-repeating-table-list"],
-                  $config["prevent-navigation-instrument-list"],
-                  $config["tab-event"], $config["tab-button"], $config["tab-name"],
+            unset($config["tab-event"], $config["tab-button"], $config["tab-name"],
                   $config["enabled"], $config["event-tabs"]);
+            echo "<style>#center { opacity: 0; } </style>";
             echo "<script>".$this->module_global." = ".json_encode($config).";</script>";
             echo '<script src="' . $this->getUrl('main.js') . '"></script>';
         }
@@ -36,7 +32,7 @@ class RecordHomeTweaks extends AbstractExternalModule {
     public function redcap_data_entry_form($project_id, $record, $instrument) {
         
         // Block navigation to select instruments
-        $instruments = $this->getProjectSetting('stop-nav-instrument')[0];
+        $instruments = $this->getProjectSetting('stop-nav-instrument');
         if ( in_array($instrument, $instruments) ) {
             $arm = $_GET['arm'] ?? '1';
             header("Location: https://".$_SERVER['HTTP_HOST']."/redcap/redcap_v".REDCAP_VERSION."/DataEntry/record_home.php?pid=".$project_id."&arm=".$arm."&id=".$record);

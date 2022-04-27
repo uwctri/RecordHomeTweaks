@@ -38,59 +38,34 @@
             "type": "event-list"
         },
         {
-            "key": "hide-form-row-list",
-            "name": "<b>Forms to hide</b>",
-            "type": "sub_settings",
-            "sub_settings": [{
-                "key": "hide-form-row",
-                "name": "<b>Form</b>",
-                "type": "form-list",
-                "repeatable": true
-            }]
+            "key": "hide-form-row",
+            "name": "<b>Form to hide</b>",
+            "type": "form-list",
+            "repeatable": true
         },
         {
-            "key": "hide-events-list",
-            "name": "<b>Events to Hide</b>",
-            "type": "sub_settings",
-            "sub_settings": [{
-                "key": "hide-events",
-                "name": "<b>Event</b>",
-                "type": "event-list",
-                "repeatable": true
-            }]
+            "key": "hide-event",
+            "name": "<b>Event to Hide</b>",
+            "type": "event-list",
+            "repeatable": true
         },
         {
-            "key": "prevent-navigation-instrument-list",
-            "name": "<b>Forms to Block Navigation to</b><br>and redirect to record home",
-            "type": "sub_settings",
-            "sub_settings": [{
-                "key": "stop-nav-instrument",
-                "name": "<b>Form</b>",
-                "type": "form-list",
-                "repeatable": true
-            }]
+            "key": "stop-nav-instrument",
+            "name": "<b>Form to Block Navigation to</b><br>and redirect to record home",
+            "type": "form-list",
+            "repeatable": true
         },
         {
-            "key": "hide-repeating-table-list",
-            "name": "<b>Repeating instrument tables to hide</b>",
-            "type": "sub_settings",
-            "sub_settings": [{
-                "key": "hide-repeating-table",
-                "name": "<b>Form</b>",
-                "type": "form-list",
-                "repeatable": true
-            }]
+            "key": "hide-repeating-table",
+            "name": "<b>Repeating instrument table to hide</b>",
+            "type": "form-list",
+            "repeatable": true
         },
         {
-            "key": "full-size-repeating-table-list",
-            "name": "<b>Repeating instrument tables to show at full width</b>",
-            "type": "sub_settings",
-            "sub_settings": [{
-                "key": "full-size-repeating-table",
-                "name": "<b>Form</b>",
-                "type": "form-list",
-                "repeatable": true
-            }]
+            "key": "full-size-repeating-table",
+            "name": "<b>Repeating instrument table to show at full width</b>",
+            "type": "form-list",
+            "repeatable": true
         },
         {
             "key": "event-tabs",
