@@ -58,7 +58,6 @@ RecordHomeTweaks.fn.watchdog = () => {
     $("#FixedTableHdrsEnable").hide();
 }
 
-// TODO the col sizing is wrong and weird
 // TODO Highlight a Col as the current one dependent on a value in that event
 
 $(document).ready(() => {
@@ -181,6 +180,7 @@ $(document).ready(() => {
             
             // Draw again
             RecordHomeTweaks.table.draw();
+            $("#event_grid_table").css("width","auto");
         });
         
         // Build out every tab & tab button
