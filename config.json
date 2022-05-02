@@ -34,7 +34,7 @@
         },
         {
             "key": "system-management-event",
-            "name": "<b>Move event to seperate table:</b><br>Used for System Managment event on the Record Home Page that don't represent a visit",
+            "name": "<b>Move event to seperate table:</b><br>Used for s System Managment event on the Record Home Page that doesn't represent a visit",
             "type": "event-list"
         },
         {
@@ -65,6 +65,38 @@
             "key": "full-size-repeating-table",
             "name": "<b>Repeating instrument table to show at full width</b>",
             "type": "form-list",
+            "repeatable": true
+        },
+        {
+            "key": "scheduled-description",
+            "name": "Below you may define a scheduled date field that contain the day an event is scheduled for. On that day the event will be highlighted to draw attention to it and force end users to the correct event. A Similar configuration exists for ranges too, while inside that range the events will be highlighted to draw attention to them",
+            "type": "descriptive"
+        },
+        {
+            "key": "scheduled-date",
+            "name": "<b>Scheduled Date</b>",
+            "type": "field-list"
+        },
+        {
+            "key": "scheduled-date-event",
+            "name": "<b>Event</b>",
+            "type": "event-list",
+            "repeatable": true
+        },
+        {
+            "key": "scheduled-range-start",
+            "name": "<b>Start Range Date</b>",
+            "type": "field-list"
+        },
+        {
+            "key": "scheduled-range-end",
+            "name": "<b>End Range Date</b>",
+            "type": "field-list"
+        },
+        {
+            "key": "scheduled-range-event",
+            "name": "<b>Event</b>",
+            "type": "event-list",
             "repeatable": true
         },
         {

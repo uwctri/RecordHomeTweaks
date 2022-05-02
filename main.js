@@ -1,4 +1,5 @@
 RecordHomeTweaks.html = {};
+RecordHomeTweaks.css = {};
 RecordHomeTweaks.fn = {};
 RecordHomeTweaks.html.alert = `
 <div class="alert alert-primary" role="alert" style="border-color:#b8daff!important;width:800px"> 
@@ -25,7 +26,13 @@ RecordHomeTweaks.html.tabRow = `<div id="tabsRow" class="row"><ul class="nav nav
 RecordHomeTweaks.html.tab = (name) => `<li class="nav-item"><a class="nav-link" href="javascript:void(0);">${name}</a></li>`;
 RecordHomeTweaks.html.tabButton = (btnText) => `<a class="btn btn-primary btn-sm newTabBtn" href="#" role="button">${btnText}</a>`;
 RecordHomeTweaks.html.imgFilter = `[src*="circle_red"],[src*="circle_green"],[src*="circle_yellow"]`;
-RecordHomeTweaks.tabsCss = 
+RecordHomeTweaks.css.highlight = 
+`<style>
+    .tableHighlight {
+        box-shadow: inset 25px 0px 25px -25px rgb(107, 238, 158), inset -25px 0px 25px -25px rgb(107, 238, 158);
+    }
+</style>`;
+RecordHomeTweaks.css.tabs = 
 `<style>
     #eventTabs .nav-link.active {
         background-color: #FFFFE0
@@ -57,8 +64,6 @@ RecordHomeTweaks.fn.watchdog = () => {
     setTimeout(RecordHomeTweaks.fn.watchdog, 1000);
     $("#FixedTableHdrsEnable").hide();
 }
-
-// TODO Highlight a Col as the current one dependent on a value in that event
 
 $(document).ready(() => {
     
@@ -143,10 +148,21 @@ $(document).ready(() => {
         RecordHomeTweaks.table.draw();
     }
     
+    // Highlighted events
+    let highlights = RecordHomeTweaks.highlight.today.concat(RecordHomeTweaks.highlight.range);
+    highlights = [1097]
+    if ( highlights.length ) {
+        $("head").append(RecordHomeTweaks.css.highlight);
+        highlights.forEach( (event_id) => {
+            let col = $(`div[data-mlm-name=${event_id}]`).first().parent()
+            $( RecordHomeTweaks.table.column( col ).nodes() ).addClass( 'tableHighlight' );
+        });
+    }
+    
     // Build out tabs and functionality
     if ( RecordHomeTweaks.tabs ) {
         RecordHomeTweaks.fn.watchdog();
-        $("head").append(RecordHomeTweaks.tabsCss);
+        $("head").append(RecordHomeTweaks.css.tabs);
         $("#event_grid_table").before(RecordHomeTweaks.html.tabRow).css("width","auto");
         
         // Tab clicks
@@ -224,6 +240,9 @@ $(document).ready(() => {
         
         $("#eventTabs a").first().click();
     }
+    
+    // Make the whole table resizable because why not
+    $("#event_grid_table").resizable({handles: "e"});
     
     // Show the screen, it was hidden in PHP
     $("#center").css("opacity","100");
