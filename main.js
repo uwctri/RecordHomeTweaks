@@ -67,6 +67,9 @@ RecordHomeTweaks.fn.watchdog = () => {
 
 $(document).ready(() => {
     
+    // Prevent a native datatables instance
+    RecordHomeTweaks.fn.watchdog();
+    
     // Checkbox settings
     if ( RecordHomeTweaks["align-th-top"] ) {
         $("#event_grid_table th").css("vertical-align","top");
@@ -162,7 +165,6 @@ $(document).ready(() => {
     
     // Build out tabs and functionality
     if ( RecordHomeTweaks.tabs ) {
-        RecordHomeTweaks.fn.watchdog();
         $("head").append(RecordHomeTweaks.css.tabs);
         $("#event_grid_table").before(RecordHomeTweaks.html.tabRow).css("width","auto");
         
