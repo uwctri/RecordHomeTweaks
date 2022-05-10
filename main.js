@@ -87,10 +87,10 @@ $(document).ready(() => {
     }
     
     // Repeating Instrument Tables
-    RecordHomeTweaks["hide-repeating-table"].filter(y=>y).forEach( (el) =>
+    RecordHomeTweaks["hide-repeating-table"]?.filter(y=>y).forEach( (el) =>
         $(`table[id^=repeat_instrument_table][id$=${el}]`).parent().remove()
     );
-    RecordHomeTweaks["full-size-repeating-table"].filter(y=>y).forEach( (el) =>
+    RecordHomeTweaks["full-size-repeating-table"]?.filter(y=>y).forEach( (el) =>
         $(`table[id^=repeat_instrument_table][id$=${el}]`).parent().removeClass().addClass('float-left')
     );
     
@@ -111,7 +111,7 @@ $(document).ready(() => {
     });
     
     // User hidden rows
-    RecordHomeTweaks.hiddenRows = RecordHomeTweaks.hiddenRows.concat(RecordHomeTweaks["hide-form-row"].filter(y=>y));
+    RecordHomeTweaks.hiddenRows = RecordHomeTweaks.hiddenRows.concat(RecordHomeTweaks["hide-form-row"]?.filter(y=>y));
     
     // User hidden columns
     if ( RecordHomeTweaks["hide-event"] ) {
@@ -152,7 +152,6 @@ $(document).ready(() => {
     
     // Highlighted events
     let highlights = RecordHomeTweaks.highlight.today.concat(RecordHomeTweaks.highlight.range);
-    highlights = [1097]
     if ( highlights.length ) {
         $("head").append(RecordHomeTweaks.css.highlight);
         highlights.forEach( (event_id) => {
