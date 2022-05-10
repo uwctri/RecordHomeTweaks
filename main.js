@@ -144,6 +144,7 @@ $(document).ready(() => {
                 RecordHomeTweaks.hiddenRows.push($(row.node()).find("td>span").first().attr("data-mlm-name"));
             }
         });
+        $("#sysManTable .invis").remove(); // Remove hidden "+" buttons in the table
         RecordHomeTweaks.table.column($header).visible(false);
         RecordHomeTweaks.table.draw();
     }
