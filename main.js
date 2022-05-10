@@ -78,6 +78,7 @@ $(document).ready(() => {
     
     if ( RecordHomeTweaks["align-img-center"] ) {
         $("#event_grid_table a img").css("margin-right","");
+        $("#event_grid_table .invis").remove();
     }
     
     // Alert
@@ -247,4 +248,7 @@ $(document).ready(() => {
     
     // Show the screen, it was hidden in PHP
     $("#center").css("opacity","100");
+    
+    // Redraw to be safe
+    RecordHomeTweaks.table.draw();
 });
