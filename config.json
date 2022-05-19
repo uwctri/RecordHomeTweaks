@@ -2,17 +2,20 @@
     "name": "Record Home Tweaks",
     "description": "Tweaks for the display and organization of events and instruments on the record home page",
     "namespace": "UWMadison\\RecordHomeTweaks",
-    "authors": [{
-        "name": "Adam Nunez",
-        "email": "Adam.Nunez@ctri.wisc.edu",
-        "institution": "UW Madison - Center for Tobacco Research and Intervention "
-    }],
+    "authors": [
+        {
+            "name": "Adam Nunez",
+            "email": "Adam.Nunez@ctri.wisc.edu",
+            "institution": "UW Madison - Center for Tobacco Research and Intervention "
+        }
+    ],
     "permissions": [
         "redcap_every_page_top",
         "redcap_data_entry_form"
     ],
     "framework-version": 9,
-    "project-settings": [{
+    "project-settings": [
+        {
             "key": "record-alert",
             "name": "<b>Record Home Alert</b><br>Displays at the top of the record home. Useful for FYIs on new instruments or recent changes",
             "type": "textarea"
@@ -104,7 +107,8 @@
             "name": "<b>Event Group Tab</b>",
             "type": "sub_settings",
             "repeatable": true,
-            "sub_settings": [{
+            "sub_settings": [
+                {
                     "key": "tab-name",
                     "name": "<b>Tab Name</b>",
                     "type": "text"
