@@ -56,17 +56,9 @@ RecordHomeTweaks.css.tabs =
     }
 </style>`;
 
-RecordHomeTweaks.fn.watchdog = () => {
-    if ($("a:contains(Table not displaying properly)").length != 0) {
-        disableFixedTableHdrs('event_grid_table', 0);
-        return;
-    }
-    setTimeout(RecordHomeTweaks.fn.watchdog, 1000);
-    $("#FixedTableHdrsEnable").hide();
-}
-
 $(document).ready(() => {
 
+    // Disable the active table if its in use
     if (!datatables_disable.event_grid_table) {
         disableFixedTableHdrs('event_grid_table', 0);
         return;
