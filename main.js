@@ -69,6 +69,14 @@ $(document).ready(() => {
         $("#event_grid_table th").css("vertical-align", "top");
     }
 
+    if (RecordHomeTweaks["align-th-center"]) {
+        $("#event_grid_table th").css("text-align", "center");
+    }
+
+    if (RecordHomeTweaks["th-nowrap"]) {
+        $("#event_grid_table th .evTitle").css("white-space", "nowrap");
+    }
+
     if (RecordHomeTweaks["remove-collapse"]) {
         $("#event_grid_table button.btn-table-collapse").remove();
     }
@@ -240,6 +248,10 @@ $(document).ready(() => {
 
     // Make the whole table resizable because why not
     $("#event_grid_table").resizable({ handles: "e" });
+
+    // Prevent the first col from getting too small
+    const tmp = $(RecordHomeTweaks.table.column(0).header());
+    tmp.css('min-width', tmp.css('width'));
 
     // Show the screen, it was hidden in PHP
     $("#center").css("opacity", "100");

@@ -22,7 +22,17 @@
         },
         {
             "key": "align-th-top",
-            "name": "Align record home page table headers to top of cell",
+            "name": "Align table headers to top of cell",
+            "type": "checkbox"
+        },
+        {
+            "key": "align-th-center",
+            "name": "Align table headers to center of cell",
+            "type": "checkbox"
+        },
+        {
+            "key": "th-nowrap",
+            "name": "Prevent wrapping of event names in table headers",
             "type": "checkbox"
         },
         {
@@ -32,7 +42,7 @@
         },
         {
             "key": "align-img-center",
-            "name": "Always align instrument markers to center",
+            "name": "Always align instrument buttons to center",
             "type": "checkbox"
         },
         {
