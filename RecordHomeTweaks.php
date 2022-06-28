@@ -7,8 +7,6 @@ use REDCap;
 
 class RecordHomeTweaks extends AbstractExternalModule {
     
-    private $module_global = 'RecordHomeTweaks';
-    
     public function redcap_every_page_top($project_id) {
         
         // Record Home Page
@@ -60,8 +58,10 @@ class RecordHomeTweaks extends AbstractExternalModule {
                   $config["scheduled-description"],$config["scheduled-date"],
                   $config["scheduled-date-event"],$config["scheduled-range-event"],
                   $config["scheduled-range-start"],$config["scheduled-range-end"]);
+                  
+            // Insernt config and js
             echo "<style>#center { opacity: 0; } </style>";
-            echo "<script>".$this->module_global." = ".json_encode($config).";</script>";
+            echo "<script>RecordHomeTweaks = ".json_encode($config).";</script>";
             echo '<script src="' . $this->getUrl('main.js') . '"></script>';
         }
     }
