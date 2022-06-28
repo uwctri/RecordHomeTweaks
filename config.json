@@ -82,7 +82,7 @@
         },
         {
             "key": "scheduled-description",
-            "name": "Below you may define a scheduled date field that contain the day an event is scheduled for. On that day the event will be highlighted to draw attention to it and force end users to the correct event. A Similar configuration exists for ranges too, while inside that range the events will be highlighted to draw attention to them",
+            "name": "<b>Scheduled Event Highlighting</b><br>Below you may define a scheduled date field that contain the day an event is scheduled for. On that day the event will be highlighted to draw attention to it and force end users to the correct event.",
             "type": "descriptive"
         },
         {
@@ -95,6 +95,11 @@
             "name": "<b>Event</b>",
             "type": "event-list",
             "repeatable": true
+        },
+        {
+            "key": "window-description",
+            "name": "<b>In-Window Event Highlighting</b><br>Similar to the above, you may define a start date field and end date field that that describe the valiid 'within window' period for an event. On those days the event will be highlighted to draw attention to it and force end users to enter data on the correct event.",
+            "type": "descriptive"
         },
         {
             "key": "scheduled-range-start",
@@ -124,15 +129,20 @@
                     "type": "text"
                 },
                 {
+                    "key": "tab-button",
+                    "name": "<b>Hide event tabs?</b><br>Hide this and below tabs by default, use a button to add them, specify button text",
+                    "type": "text"
+                },
+                {
+                    "key": "tab-logic",
+                    "name": "<b>Branching Logic</b><br>Show this tab, or it's associted button, only if truthy",
+                    "type": "text"
+                },
+                {
                     "key": "tab-event",
                     "name": "<b>Include Event</b>",
                     "type": "event-list",
                     "repeatable": true
-                },
-                {
-                    "key": "tab-button",
-                    "name": "<b>Hide event tabs?</b><br>Hide this and below tabs by default<br>and use a button to add them, specify button text",
-                    "type": "text"
                 }
             ]
         }
