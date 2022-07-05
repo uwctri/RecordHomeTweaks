@@ -216,7 +216,7 @@ $(document).ready(() => {
                 }
                 currentTabs = [];
                 hideTab = true;
-                if ( ('logic' in data) && data.logic ) {
+                if ( !('logic' in data) || data.logic ) {
                     $('#tabsRow').append(RecordHomeTweaks.html.tabButton(data.button));
                 }
             }
