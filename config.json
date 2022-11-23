@@ -118,6 +118,11 @@
             "repeatable": true
         },
         {
+            "key": "event-tabs-description",
+            "name": "<b>Event Group Tabs</b><br>Below you may define any number of tabs that group events together. The first tab will be the default shown when navigating to the Record Home page. If you'd like to ensure that data is only entered sequentially on tabs (e.g. each tab represents an opt-in trial by the subject) you can hide a group of tabs by specifing a text to use on the \"Add tab\" button (e.g. Start New Trial). You only should specify this text on the first tab of the group.",
+            "type": "descriptive"
+        },
+        {
             "key": "event-tabs",
             "name": "<b>Event Group Tab</b>",
             "type": "sub_settings",
@@ -130,7 +135,7 @@
                 },
                 {
                     "key": "tab-button",
-                    "name": "<b>Hide event tabs?</b><br>Hide this and below tabs by default, use a button to add them, specify button text",
+                    "name": "<b>Hide by default?</b><br>Specify the \"Add tab\" button text",
                     "type": "text"
                 },
                 {
