@@ -6,4 +6,4 @@ Record home tweaks is a collection of small adjustments that can be made to the 
 
 ## Installing
 
-This EM isn't available to install via redcap's EM database so you'll need to install to your modules folder (i.e. `redcap/modules/record_home_tweaks_v1.0.0`) manually if you'd like to use it.
+You can install the module from the REDCap EM repo or drop it directly in your modules folder (i.e. `redcap/modules/record_home_tweaks_v1.0.0`)

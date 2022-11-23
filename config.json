@@ -6,7 +6,7 @@
         {
             "name": "Adam Nunez",
             "email": "Adam.Nunez@ctri.wisc.edu",
-            "institution": "UW Madison - Center for Tobacco Research and Intervention "
+            "institution": "UW Madison - Center for Tobacco Research and Intervention"
         }
     ],
     "permissions": [
@@ -47,7 +47,7 @@
         },
         {
             "key": "system-management-event",
-            "name": "<b>Move event to seperate table:</b><br>Used for s System Managment event on the Record Home Page that doesn't represent a visit",
+            "name": "<b>Move event to seperate table:</b><br>Useful to denote a \"System Managment\" event that doesn't represent a visit",
             "type": "event-list"
         },
         {
@@ -76,13 +76,13 @@
         },
         {
             "key": "full-size-repeating-table",
-            "name": "<b>Repeating instrument table to show at full width</b>",
+            "name": "<b>Repeating instrument table to show at full width</b><br>Prevents wrapping of text to next line",
             "type": "form-list",
             "repeatable": true
         },
         {
             "key": "scheduled-description",
-            "name": "<b>Scheduled Event Highlighting</b><br>Below you may define a scheduled date field that contain the day an event is scheduled for. On that day the event will be highlighted to draw attention to it and force end users to the correct event.",
+            "name": "<b>Scheduled Event Highlighting</b><br>Below you may define a scheduled date field that contains the day an event is scheduled for. On that day the event will be highlighted to draw attention to it and direct end users to enter data on the correct event.",
             "type": "descriptive"
         },
         {
@@ -98,7 +98,7 @@
         },
         {
             "key": "window-description",
-            "name": "<b>In-Window Event Highlighting</b><br>Similar to the above, you may define a start date field and end date field that that describe the valiid 'within window' period for an event. On those days the event will be highlighted to draw attention to it and force end users to enter data on the correct event.",
+            "name": "<b>In-Window Event Highlighting</b><br>Similar to the above, you may define a start date field and end date field that that describe the valiid 'within window' period for an event. On those days the event will be highlighted to draw attention to it and direct end users to enter data on the correct event.",
             "type": "descriptive"
         },
         {
