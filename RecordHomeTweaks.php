@@ -10,8 +10,8 @@ class RecordHomeTweaks extends AbstractExternalModule
 {
     public function redcap_every_page_top($project_id)
     {
-        // Exit if not Record Home Page
-        if (!$this->isPage('DataEntry/record_home.php') || empty($_GET['id'])) {
+        // Exit if not Record Home Page or log out
+        if (!$this->isPage('DataEntry/record_home.php') || empty($_GET['id']) || !defined("USERID")) {
             return;
         }
 
