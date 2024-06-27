@@ -53,9 +53,11 @@ $(document).ready(() => {
                 color: #fff!important;
                 height: 25px;
                 padding: 3px 8px 3px 8px;
+                width: max-content;
             }
             .nav-tabs {
                 border-bottom: none;
+                width: auto;
             }
         </style>`
     }
