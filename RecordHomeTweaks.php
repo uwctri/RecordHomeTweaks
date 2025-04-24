@@ -11,9 +11,9 @@ class RecordHomeTweaks extends AbstractExternalModule
     public function redcap_every_page_top($project_id)
     {
         // Exit if not Record Home Page or log out
-        if (!$this->isPage('DataEntry/record_home.php') || empty($_GET['id']) || !defined("USERID")) {
+        // Note: as of 14.6.3 we don't need to check for login page anymore (USERID)
+        if (!$this->isPage('DataEntry/record_home.php') || empty($_GET['id']) || !defined("USERID"))
             return;
-        }
 
         // Setup 
         $config = $this->getProjectSettings();
@@ -22,7 +22,7 @@ class RecordHomeTweaks extends AbstractExternalModule
         $record = $_GET['id'];
 
         // Process the tab names config
-        $tabnames  = array_filter($config["tab-name"]);
+        $tabnames  = array_filter($config["tab-name"] ?? []);
         foreach ($tabnames as $index => $name) {
             $config["tabs"][$name] = [
                 "events" => $config["tab-event"][$index],
@@ -70,15 +70,15 @@ class RecordHomeTweaks extends AbstractExternalModule
     public function redcap_data_entry_form($project_id, $record, $instrument)
     {
         // Block navigation to select instruments
-        $instruments = $this->getProjectSetting('stop-nav-instrument');
-        if (in_array($instrument, $instruments)) {
-            $url = APP_PATH_WEBROOT_FULL . "redcap_v" . REDCAP_VERSION . "/DataEntry/record_home.php";
-            $params = http_build_query([
-                "pid" => $project_id,
-                "arm" => $_GET['arm'] ?? '1',
-                "id" => $record
-            ]);
-            header("Location: {$url}?{$params}");
-        }
+        $instruments = $this->getProjectSetting('stop-nav-instrument') ?? [];
+        if (!in_array($instrument, $instruments))
+            return;
+        $url = APP_PATH_WEBROOT_FULL . "redcap_v" . REDCAP_VERSION . "/DataEntry/record_home.php";
+        $params = http_build_query([
+            "pid" => $project_id,
+            "arm" => $_GET['arm'] ?? '1',
+            "id" => $record
+        ]);
+        header("Location: {$url}?{$params}");
     }
 }
