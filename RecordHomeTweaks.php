@@ -15,6 +15,10 @@ class RecordHomeTweaks extends AbstractExternalModule
         if (!$this->isPage('DataEntry/record_home.php') || empty($_GET['id']) || !defined("USERID"))
             return;
 
+        // Exit if 2fa page or other login issue
+        if (empty($this->getCSRFToken()))
+            return;
+
         // Setup 
         $config = $this->getProjectSettings();
         $config["highlight"] = ["today" => [], "range" => []];
