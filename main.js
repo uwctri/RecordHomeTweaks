@@ -96,12 +96,16 @@ $(document).ready(() => {
     }
 
     // Repeating Instrument Tables
-    config["hide-repeating-table"]?.filter(y => y).forEach((el) =>
-        $(`table[id^=repeat_instrument_table][id$=${el}]`).parent().remove()
-    );
-    config["full-size-repeating-table"]?.filter(y => y).forEach((el) =>
-        $(`table[id^=repeat_instrument_table][id$=${el}]`).parent().removeClass().addClass('float-left')
-    );
+    config["hide-repeating-table"]?.filter(y => y).forEach((el) => {
+        $(`table[id^=repeat_instrument_table][id$=${el}]`).parent().remove(); // For RC prior to 15.3.3 
+        $(`div[id^=repeat_instrument_table-][id$=${el}-container]`).remove(); // Modern RC
+    });
+    config["full-size-repeating-table"]?.filter(y => y).forEach((el) => {
+        let parent = $(`div[id^=repeat_instrument_table-][id$=${el}-container]`);
+        parent.find(`.rc-rhp-repeat-instrument-container-head`).css("max-width", "none");
+        parent.find(`.rc-rhp-repeat-instrument-container-body`).css("max-width", "none");
+        parent.find(`.rc-rhp-repeat-instrument-container-body td`).css("white-space", "nowrap");
+    });
 
     // Get table refrence
     $("#event_grid_table th").attr("data-orderable", "false");
