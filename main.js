@@ -119,6 +119,7 @@ $(document).ready(() => {
     let hiddenRows = [];
     let hiddenRowsTmp = [];
     $.fn.dataTable.ext.search.push((settings, data, dataIndex) => {
+        if (settings.nTable.id !== "event_grid_table") return true;
         let name = $($table.row(dataIndex).node()).find("td>span").first().attr("data-mlm-name");
         return !hiddenRows.includes(name) && !hiddenRowsTmp.includes(name);
     });
