@@ -1,4 +1,7 @@
 $(document).ready(() => {
+    // Run after RecordHomePage.js's ready handler so enableFixedTableHdrs('event_grid_table')
+    // doesn't destroy our DataTable instance in REDCap 17.6.1+.
+    setTimeout(() => {
 
     const config = ExternalModules.UWMadison.RecordHomeTweaks.config;
 
@@ -66,6 +69,15 @@ $(document).ready(() => {
     if (!datatables_disable.event_grid_table) {
         disableFixedTableHdrs('event_grid_table', 0);
         return;
+    }
+
+    // Prevent later RecordHomePage.js calls (e.g. collapse toggles) from destroying our DataTable
+    const origEnableFixedTableHdrs = window.enableFixedTableHdrs;
+    if (typeof origEnableFixedTableHdrs === 'function') {
+        window.enableFixedTableHdrs = function (table_id, ...args) {
+            if (table_id === 'event_grid_table' && DataTableDisabled('event_grid_table')) return;
+            return origEnableFixedTableHdrs.apply(this, [table_id, ...args]);
+        };
     }
 
     // Checkbox settings
@@ -269,4 +281,6 @@ $(document).ready(() => {
 
     // Redraw to be safe
     $table.draw();
+
+    }, 0);
 });
